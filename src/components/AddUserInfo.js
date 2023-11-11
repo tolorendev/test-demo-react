@@ -24,7 +24,7 @@ class AddUserInfo extends React.Component {
   }
   render() {
     return (
-      <div>
+      <React.Fragment>
         My name is {this.state.name}, and I'am {this.state.age} <br />
         <form onSubmit={(event) => this.handleOnSubmit(event)}>
           <label>Your name: </label>
@@ -41,7 +41,7 @@ class AddUserInfo extends React.Component {
           />
           <button>Submit</button>
         </form>
-      </div>
+      </React.Fragment>
     );
   }
 }

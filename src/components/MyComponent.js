@@ -19,11 +19,11 @@ class MyComponent extends React.Component {
   // JSX
   render() {
     return (
-      <div>
+      <React.Fragment>
         <AddUserInfo handleAddNewUser={this.handleAddNewUser} />
         <br /> <br />
         <DisplayInfo listUsers={this.state.listUsers} />
-      </div>
+      </React.Fragment>
     );
   }
 }
