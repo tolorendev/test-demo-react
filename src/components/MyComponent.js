@@ -5,15 +5,26 @@ import DisplayInfo from "./DisplayInfo";
 class MyComponent extends React.Component {
   state = {
     listUsers: [
-      { id: 1, name: "Sang", age: "16" },
-      { id: 2, name: "Toloren", age: "26" },
-      { id: 3, name: "Tosang", age: "33" },
+      { id: "1", name: "Sang", age: "16" },
+      { id: "2", name: "Toloren", age: "26" },
+      { id: "3", name: "Tosang", age: "33" },
     ],
   };
   handleAddNewUser = (userObj) => {
     console.log(userObj);
     this.setState({
-      listUsers: [...this.state.listUsers, userObj],
+      listUsers: [userObj, ...this.state.listUsers],
+    });
+    // this.setState({
+    //   listUsers: [...this.state.listUsers, userObj],
+    // });
+  };
+  handleDeleteUser = (userId) => {
+    let listUsersClone = this.state.listUsers;
+    listUsersClone = listUsersClone.filter((item) => item.id !== userId);
+
+    this.setState({
+      listUsers: listUsersClone,
     });
   };
   // JSX
@@ -22,7 +33,10 @@ class MyComponent extends React.Component {
       <React.Fragment>
         <AddUserInfo handleAddNewUser={this.handleAddNewUser} />
         <br /> <br />
-        <DisplayInfo listUsers={this.state.listUsers} />
+        <DisplayInfo
+          listUsers={this.state.listUsers}
+          handleDeleteUser={this.handleDeleteUser}
+        />
       </React.Fragment>
     );
   }
