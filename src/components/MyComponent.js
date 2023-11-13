@@ -1,44 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import AddUserInfo from "./AddUserInfo";
 import DisplayInfo from "./DisplayInfo";
 
-class MyComponent extends React.Component {
-  state = {
-    listUsers: [
-      { id: "1", name: "Sang", age: "16" },
-      { id: "2", name: "Toloren", age: "26" },
-      { id: "3", name: "Tosang", age: "33" },
-    ],
-  };
-  handleAddNewUser = (userObj) => {
+const MyComponent = (props) => {
+  const [listUsers, setListUsers] = useState([
+    { id: "1", name: "Sang", age: "16" },
+    { id: "2", name: "Toloren", age: "26" },
+    { id: "3", name: "Tosang", age: "33" },
+  ]);
+  const handleAddNewUser = (userObj) => {
     console.log(userObj);
-    this.setState({
-      listUsers: [userObj, ...this.state.listUsers],
-    });
-    // this.setState({
-    //   listUsers: [...this.state.listUsers, userObj],
-    // });
+    setListUsers((prevListUser) => [userObj, ...prevListUser]);
   };
-  handleDeleteUser = (userId) => {
-    let listUsersClone = this.state.listUsers;
-    listUsersClone = listUsersClone.filter((item) => item.id !== userId);
 
-    this.setState({
-      listUsers: listUsersClone,
-    });
+  const handleDeleteUser = (userId) => {
+    let listUsersClone = listUsers.slice();
+    listUsersClone = listUsersClone.filter((item) => item.id !== userId);
+    setListUsers(listUsersClone);
   };
   // JSX
-  render() {
-    return (
-      <React.Fragment>
-        <AddUserInfo handleAddNewUser={this.handleAddNewUser} />
-        <br /> <br />
-        <DisplayInfo
-          listUsers={this.state.listUsers}
-          handleDeleteUser={this.handleDeleteUser}
-        />
-      </React.Fragment>
-    );
-  }
-}
+
+  return (
+    <>
+      <AddUserInfo handleAddNewUser={handleAddNewUser} />
+      <br /> <br />
+      <DisplayInfo listUsers={listUsers} handleDeleteUser={handleDeleteUser} />
+    </>
+  );
+};
 export default MyComponent;
